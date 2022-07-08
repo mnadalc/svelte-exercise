@@ -5,17 +5,7 @@
     "email": "contact@mnadalc.com"
   },
   "version": "0.0.1",
-  "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "1.0.0-next.30",
-    "@tsconfig/svelte": "2.0.1",
-    "bun-types": "0.1.2",
-    "svelte": "3.44.0",
-    "svelte-check": "2.2.7",
-    "svelte-preprocess": "4.9.8",
-    "tslib": "2.3.1",
-    "typescript": "4.5.4",
-    "vite": "2.9.9"
-  },
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -24,5 +14,151 @@
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
-  "type": "module"
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "1.0.0-next.30",
+    "@testing-library/svelte": "^3.1.3",
+    "@tsconfig/svelte": "2.0.1",
+    "@types/jest": "^28.1.4",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "bun-types": "0.1.2",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-svelte": "^2.2.0",
+    "husky": "^8.0.1",
+    "jest": "^28.1.2",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "svelte": "3.44.0",
+    "svelte-check": "2.2.7",
+    "svelte-preprocess": "4.9.8",
+    "ts-jest": "^28.0.5",
+    "tslib": "2.3.1",
+    "typescript": "4.5.4",
+    "vite": "2.9.9"
+  },
+  "prettier": {
+    "jsxBracketSameLine": true,
+    "singleQuote": true
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "eslint:recommended",
+      "plugin:prettier/recommended",
+      "plugin:node/recommended",
+      "plugin:svelte/recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:import/typescript"
+    ],
+    "plugins": [
+      "import"
+    ],
+    "settings": {
+      "node": {
+        "tryExtensions": [
+          ".js",
+          ".json",
+          ".node",
+          ".ts",
+          ".tsx",
+          ".svelte"
+        ]
+      }
+    },
+    "rules": {
+      "import/order": [
+        1,
+        {
+          "groups": [
+            [
+              "builtin",
+              "external"
+            ],
+            "internal",
+            [
+              "sibling",
+              "parent",
+              "index"
+            ]
+          ],
+          "pathGroups": [
+            {
+              "pattern": "@xingternal/**",
+              "group": "internal"
+            }
+          ],
+          "pathGroupsExcludedImportTypes": [
+            "react"
+          ],
+          "newlines-between": "always",
+          "alphabetize": {
+            "order": "asc",
+            "caseInsensitive": true
+          }
+        }
+      ],
+      "@typescript-eslint/consistent-type-assertions": [
+        "warn",
+        {
+          "assertionStyle": "never"
+        }
+      ],
+      "@typescript-eslint/explicit-function-return-type": [
+        "error",
+        {
+          "allowExpressions": true,
+          "allowTypedFunctionExpressions": true,
+          "allowHigherOrderFunctions": true
+        }
+      ],
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          "args": "after-used",
+          "ignoreRestSiblings": true,
+          "argsIgnorePattern": "^_"
+        }
+      ],
+      "node/no-unsupported-features/es-syntax": [
+        "error",
+        {
+          "ignores": [
+            "dynamicImport",
+            "modules"
+          ]
+        }
+      ],
+      "node/no-missing-import": [
+        "off"
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "**/node_modules",
+    "**/dist",
+    "**/.cache",
+    "**/i18n/locales",
+    "core/vscode-xinglets/out",
+    "core/generator-plugin/_templates",
+    "docs/public",
+    "docs/packages"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,svelte,md,json}": [
+      "prettier --write"
+    ],
+    "*.{ts,tsx,svelte,json}": [
+      "eslint --rule \"@typescript-eslint/no-unused-vars: error\""
+    ]
+  }
 }
